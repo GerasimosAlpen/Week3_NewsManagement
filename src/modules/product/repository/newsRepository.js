@@ -42,6 +42,15 @@ const published = async (id) => {
   });
 };
 
-// const search = async
+const searchNews = async (q) => {
+  return await db.news.findMany({
+    where: {
+      title: {
+        contains: q,
+      },
+    },
+  });
+};
 
-export default { findAllNews, create, updateId, deleteId, published };
+
+export default { findAllNews, create, updateId, deleteId, published, searchNews };

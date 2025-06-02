@@ -4,6 +4,6 @@ export default (app) => {
   app.post("/news", news.create);
   app.put("/news/:id", news.updateId);
   app.delete("/news/:id", news.deleteId);
-    app.put("/news/publish/:id", news.published);
-    
+  app.put("/news/publish/:id", news.published);
+  app.get("/news/search", news.searchNews);
 };

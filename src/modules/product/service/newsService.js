@@ -20,6 +20,8 @@ const published = async (id) => {
   return await newsRepository.published(id);
 };
 
-export default {
-    findAllNews, create, updateId, deleteId, published
-}
+const searchNews = async (q) => {
+  return await newsRepository.searchNews(q);
+} 
+
+export default {findAllNews, create, updateId, deleteId, published, searchNews}

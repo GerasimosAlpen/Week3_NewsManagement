@@ -9,9 +9,9 @@ export default {
 
   async create(req, res) {
     const scheme = Joi.object({
-      title: Joi.string().required(),
+      title: Joi.string().min(5).required(),
       content: Joi.string().min(10).required(),
-      writer: Joi.string().required(),
+      writer: Joi.string().min(3).required(),
     });
 
     try {
@@ -26,9 +26,9 @@ export default {
 
   async updateId(req, res) {
     const scheme = Joi.object({
-      title: Joi.string().required(),
+      title: Joi.string().min(5).required(),
       content: Joi.string().min(10).required(),
-      writer: Joi.string().required(),
+      writer: Joi.string().min(3).required(),
     });
 
     try {
@@ -56,6 +56,21 @@ export default {
       const updatedNews = await newsService.published(parseInt(req.params.id));
 
       res.status(200).json({ message: "News published", data: updatedNews });
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+
+  async searchNews(req, res) {
+    const scheme = Joi.object({
+      q: Joi.string().min(2).required(),
+    });
+
+    try {
+      await scheme.validateAsync(req.query);
+      const { q } = req.query;
+      const searched = await newsService.searchNews(q);
+      res.status(200).json({ message: "Search success", data: searched });
     } catch (err) {
       res.status(400).json(err);
     }
